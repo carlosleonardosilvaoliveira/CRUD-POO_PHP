@@ -21,6 +21,14 @@ class TerminaisController
                 $this->index();
             break;
 
+            case "modal":
+                $this->detalhesModal();
+            break;
+
+            case "update":
+                $this->update();
+            break;
+
             case "export":
                 $this->exportCsv();
             break;
@@ -35,6 +43,7 @@ class TerminaisController
         }
     }
 
+    //Telas do View
     public function index()
     {
         $terminaisObj = new Terminais($this->conn);
@@ -46,6 +55,37 @@ class TerminaisController
         ));
     }
 
+    public function detalhesModal()
+    {
+        $terminaisObj = new Terminais($this->conn);
+        $terminais = $terminaisObj->getById($_GET['numero']);
+
+        $this->view("modal", array(
+            "terminais" => $terminais,
+            "titulo" => "Modal do terminal"
+        ));
+    }
+
+    public function update()
+    {
+        if (isset($_POST['numero'])) {
+
+            $terminaisObj = new Terminais($this->conn);
+            $terminaisObj->setNumero($_POST['numero']);
+            $terminaisObj->setPonto($_POST['ponto']);
+            $terminaisObj->setUf($_POST['uf']);
+            $terminaisObj->setTipo($_POST['tipo']);
+            $terminaisObj->setMarca($_POST['marca']);
+            $terminaisObj->setModelo($_POST['modelo']);
+            $terminaisObj->setSerie($_POST['serie']);
+            $terminaisObj->setIp($_POST['ip']);
+            $save = $terminaisObj->update();
+        }
+
+        header("Location: index.php");
+    }
+
+    //Import e Export CSV
     public function exportCsv()
     {
         $terminaisObj = new Terminais($this->conn);

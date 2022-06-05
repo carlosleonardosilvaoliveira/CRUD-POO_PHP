@@ -128,4 +128,23 @@ class terminais
 
         return $result;
     }
+
+    public function update()
+    {
+        $consult = $this->conn->prepare("UPDATE simgaindsaa SET numero = :numero, ponto = :ponto, uf = :uf, tipo = :tipo, marca = :marca, modelo = :modelo, serie = :serie, ip = :ip WHERE numero = :numero");
+
+        $result = $consult->execute(array(
+            "numero" => $this->numero,
+            "ponto" => $this->ponto,
+            "uf"    => $this->uf,
+            "tipo" => $this->tipo,
+            "marca" => $this->marca,
+            "modelo" => $this->modelo,
+            "serie"  => $this->serie,
+            "ip"   => $this->ip
+        ));
+        $this->conn = null;
+
+        return $result;
+    }
 }

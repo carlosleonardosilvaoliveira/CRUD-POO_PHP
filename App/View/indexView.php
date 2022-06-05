@@ -6,25 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Links Scripts-->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <!--<script src="assets/js/message_errors.js"></script>-->
+
+    <!--Links CSS-->
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
 
     <title>SAA</title>
 </head>
 <body>
 
     <h3>Terminais</h3>
-    <?php foreach($dados['terminais'] as $row) { ?>
-            <?php echo $row['numero']; ?> -
-            <?php echo $row['ponto']; ?> -
-            <?php echo $row['uf']; ?> -
-            <?php echo $row['tipo']; ?> -
-            <?php echo $row['marca']; ?> -
-            <?php echo $row['modelo']; ?> -
-            <?php echo $row['serie']; ?> -
-            <?php echo $row['ip']; ?>
-        <hr/>
-    <?php } ?>
+    <div class="p-0">
+        <?php foreach($dados['terminais'] as $row) { ?>
+                <?php echo $row['numero']; ?> -
+                <?php echo $row['ponto']; ?> -
+                <?php echo $row['uf']; ?> -
+                <?php echo $row['tipo']; ?> -
+                <?php echo $row['marca']; ?> -
+                <?php echo $row['modelo']; ?> -
+                <?php echo $row['serie']; ?> -
+                <?php echo $row['ip']; ?> - 
+                
+                <a href="index.php?controller=terminais&action=modal&numero=<?php echo $row['numero']; ?>" class="btn btn-success view_modal">Modal</a>
+                
+            <hr/>
+        <?php } ?>
+    </div>
 
     <div>
         <form action="index.php?controller=terminais&action=export" method="POST" name="export_excel" enctype="multipart/form-data">
@@ -50,5 +59,21 @@
     </div>
 
     <div class="erro"></div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detalhes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.view_modal').on('click', function(event){
+            event.preventDefault();
+
+            $("#detalhes").modal('show').find('.modal-content').load($(this).attr('href'));
+        });
+    </script>
 </body>
 </html>
