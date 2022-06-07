@@ -16,9 +16,9 @@
               Modelo: <input type="text" name="modelo" value="<?php echo $dados['terminais']->modelo ?>" class="form-control"/>
               Serie: <input type="text" name="serie" value="<?php echo $dados['terminais']->serie ?>" class="form-control"/>
               IP: <input type="text" name="ip" value="<?php echo $dados['terminais']->ip ?>" class="form-control"/>
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <input type="submit" value="Atualizar" class="btn btn-success"/>
-        </form>
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <input type="submit" value="Atualizar" class="btn btn-success"/>
+
+            </form>
       </div>
